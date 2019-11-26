@@ -1,6 +1,9 @@
 package me.badbones69.crazyauctions.currency;
 
 import me.badbones69.crazyauctions.api.FileManager.Files;
+
+import java.math.BigDecimal;
+
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -53,8 +56,8 @@ public enum CurrencyManager { // Currency Manager
 	 * @param amount
 	 *            The amount you want to take.
 	 */
-	public static void removeMoney(Player player, Long amount) {
-		Vault.removeMoney(player, amount);
+	public static boolean removeMoney(Player player, Long amount) {
+		return Vault.removeMoney(player, new BigDecimal(amount));
 	}
 	
 	/**
@@ -64,8 +67,8 @@ public enum CurrencyManager { // Currency Manager
 	 * @param amount
 	 *            The amount you want to take.
 	 */
-	public static void removeMoney(OfflinePlayer player, Long amount) {
-		Vault.removeMoney(player, amount);
+	public static boolean removeMoney(OfflinePlayer player, Long amount) {
+		return Vault.removeMoney(player, new BigDecimal(amount));
 	}
 	
 	/**
@@ -75,8 +78,8 @@ public enum CurrencyManager { // Currency Manager
 	 * @param amount
 	 *            The amount you want to add.
 	 */
-	public static void addMoney(Player player, Long amount) {
-		Vault.addMoney(player, amount);
+	public static boolean addMoney(Player player, Long amount) {
+		return Vault.addMoney(player, new BigDecimal(amount));
 	}
 	
 	/**
@@ -86,8 +89,8 @@ public enum CurrencyManager { // Currency Manager
 	 * @param amount
 	 *            The amount you want to add.
 	 */
-	public static void addMoney(OfflinePlayer player, Long amount) {
-		Vault.addMoney(player, amount);
+	public static boolean addMoney(OfflinePlayer player, Long amount) {
+		return Vault.addMoney(player, new BigDecimal(amount));
 	}
 	
 	/**

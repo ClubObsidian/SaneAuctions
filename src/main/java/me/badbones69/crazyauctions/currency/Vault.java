@@ -1,57 +1,147 @@
 package me.badbones69.crazyauctions.currency;
 
-import net.milkbowl.vault.economy.Economy;
-import net.milkbowl.vault.economy.EconomyResponse;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.math.BigDecimal;
+
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.entity.Player;
-import org.bukkit.plugin.RegisteredServiceProvider;
+import org.bukkit.plugin.Plugin;
 
 public class Vault {
 	
-	public static Economy econ = null;
-	public static EconomyResponse r;
+	private static Object economy;
+	private static Class<?> economyClass;
+	private static Method getBalanceMethod;
+	private static Method withdrawPlayerMethod;
+	private static Method depositPlayerMethod;
 	
-	public static boolean hasVault() {
+	public static boolean hasVault() 
+	{
 		return Bukkit.getServer().getPluginManager().getPlugin("Vault") != null;
 	}
 	
-	public static boolean setupEconomy() {
-		if(Bukkit.getServer().getPluginManager().getPlugin("Vault") == null) {
+	public static boolean setupEconomy() 
+	{
+		Plugin vault = Bukkit.getServer().getPluginManager().getPlugin("Vault");
+		if(vault == null)
+		{
 			return false;
 		}
-		RegisteredServiceProvider<Economy> rsp = Bukkit.getServer().getServicesManager().getRegistration(Economy.class);
-		if(rsp == null) {
+		
+		try 
+		{
+			Vault.economyClass = Class.forName("net.milkbowl.vault.economy.Economy");
+		} 
+		catch (ClassNotFoundException e) 
+		{
+			e.printStackTrace();
 			return false;
 		}
-		econ = rsp.getProvider();
-		return econ != null;
+		
+		if(Vault.economyClass == null)
+		{
+			return false;
+		}
+		
+		Vault.economy = Bukkit.getServer().getServicesManager().getRegistration(Vault.economyClass).getProvider();
+		return Vault.economy != null;
 	}
-	
-	public static Long getMoney(Player player) {
-		if(player != null) {
-			try {
-				return (long) econ.getBalance(player);
-			}catch(NullPointerException ignore) {
+
+	public static Long getMoney(OfflinePlayer player) 
+	{
+		double balance = -1;
+		if(Vault.getBalanceMethod == null)
+		{
+			try 
+			{
+				Vault.getBalanceMethod = Vault.economyClass.getDeclaredMethod("getBalance", OfflinePlayer.class);
+				Vault.getBalanceMethod.setAccessible(true);
+			} 
+			catch (NoSuchMethodException | SecurityException e) 
+			{
+				e.printStackTrace();
 			}
 		}
-		return 0L;
+		
+		try 
+		{
+			balance = (double) Vault.getBalanceMethod.invoke(Vault.economy, player);
+		} 
+		catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) 
+		{
+			e.printStackTrace();
+		}
+		
+		return (long) balance;
 	}
-	
-	public static void removeMoney(Player player, Long amount) {
-		econ.withdrawPlayer(player, amount);
+
+	public static boolean removeMoney(OfflinePlayer playerWrapper, BigDecimal amt) 
+	{
+		if(amt.doubleValue() < 0)
+		{
+			return false;
+		}
+		
+		if(Vault.withdrawPlayerMethod == null)
+		{
+			try 
+			{
+				Vault.withdrawPlayerMethod = Vault.economyClass.getDeclaredMethod("withdrawPlayer", OfflinePlayer.class, double.class);
+				Vault.withdrawPlayerMethod.setAccessible(true);
+			} 
+			catch (NoSuchMethodException | SecurityException e) 
+			{
+				e.printStackTrace();
+			}
+		}
+		
+		double amtDouble = amt.doubleValue();
+		double balance = Vault.getMoney(playerWrapper).doubleValue();
+		
+		if(balance >= amtDouble)
+		{
+			try 
+			{
+				Vault.withdrawPlayerMethod.invoke(Vault.economy, playerWrapper.getPlayer(), amtDouble);
+				return true;
+			} 
+			catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) 
+			{
+				e.printStackTrace();
+			}
+		}
+
+		return false;
 	}
-	
-	public static void removeMoney(OfflinePlayer player, Long amount) {
-		econ.withdrawPlayer(player, amount);
-	}
-	
-	public static void addMoney(Player player, Long amount) {
-		econ.depositPlayer(player, amount);
-	}
-	
-	public static void addMoney(OfflinePlayer player, Long amount) {
-		econ.depositPlayer(player, amount);
+
+	public static boolean addMoney(OfflinePlayer playerWrapper, BigDecimal amt) 
+	{
+		if(amt.doubleValue() < 0)
+			return false;
+		
+		if(Vault.depositPlayerMethod == null)
+		{
+			try 
+			{
+				Vault.depositPlayerMethod = Vault.economyClass.getDeclaredMethod("depositPlayer", OfflinePlayer.class, double.class);
+				Vault.depositPlayerMethod.setAccessible(true);
+			} 
+			catch (NoSuchMethodException | SecurityException e) 
+			{
+				e.printStackTrace();
+			}
+		}
+		
+		try 
+		{
+			Vault.depositPlayerMethod.invoke(Vault.economy, playerWrapper.getPlayer(), amt.doubleValue());
+		} 
+		catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) 
+		{
+			e.printStackTrace();
+		}
+		return true;
 	}
 	
 }
