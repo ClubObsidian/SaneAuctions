@@ -305,19 +305,6 @@ public class Main extends JavaPlugin implements Listener {
 		return false;
 	}
 	
-	@EventHandler
-	public void onJoin(PlayerJoinEvent e) {
-		final Player player = e.getPlayer();
-		new BukkitRunnable() {
-			@Override
-			public void run() {
-				if(player.getName().equals("BadBones69")) {
-					player.sendMessage(Methods.getPrefix() + Methods.color("&7This server is running your Crazy Auctions Plugin. " + "&7It is running version &av" + Bukkit.getServer().getPluginManager().getPlugin("CrazyAuctions").getDescription().getVersion() + "&7."));
-				}
-			}
-		}.runTaskLater(this, 40);
-	}
-	
 	private void startCheck() {
 		new BukkitRunnable() {
 			@Override
