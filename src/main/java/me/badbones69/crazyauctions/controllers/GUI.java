@@ -544,7 +544,7 @@ public class GUI implements Listener {
 									}
 									Bukkit.getPluginManager().callEvent(new AuctionNewBidEvent(player, data.getItemStack("Items." + ID + ".Item"), bid));
 									data.set("Items." + ID + ".Price", bid);
-									data.set("Items." + ID + ".TopBidder", player.getName());
+									data.set("Items." + ID + ".TopBidder", uuid);
 									HashMap<String, String> placeholders = new HashMap<>();
 									placeholders.put("%Bid%", bid + "");
 									player.sendMessage(Messages.BID_MESSAGE.getMessage(placeholders));
@@ -895,7 +895,7 @@ public class GUI implements Listener {
 									int page = Integer.parseInt(e.getView().getTitle().split("#")[1]);
 									if(data.contains("OutOfTime/Cancelled")) {
 										for(String i : data.getConfigurationSection("OutOfTime/Cancelled").getKeys(false)) {
-											if(data.getString("OutOfTime/Cancelled." + i + ".Seller").equalsIgnoreCase(player.getName())) {
+											if(data.getString("OutOfTime/Cancelled." + i + ".Seller").equalsIgnoreCase(uuid)) {
 												if(Methods.isInvFull(player)) {
 													player.sendMessage(Messages.INVENTORY_FULL.getMessage());
 													break;
