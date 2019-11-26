@@ -716,7 +716,7 @@ public class GUI implements Listener {
 													return;
 												}
 												if(data.getBoolean("Items." + i + ".Biddable")) {
-													if(player.getName().equalsIgnoreCase(data.getString("Items." + i + ".TopBidder"))) {
+													if(uuid.equalsIgnoreCase(data.getString("Items." + i + ".TopBidder"))) {
 														String it = config.getString("Settings.GUISettings.OtherSettings.Top-Bidder.Item");
 														String name = config.getString("Settings.GUISettings.OtherSettings.Top-Bidder.Name");
 														ItemStack I;
