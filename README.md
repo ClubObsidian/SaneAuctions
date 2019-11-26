@@ -7,4 +7,5 @@ A fork of [badbones69's](https://github.com/badbones69/) [Crazy-Auctions.](https
 ## Changes
 
 * UUID based
-* Code cleanedup
+* Code cleaned up
+* Uses Gradle
