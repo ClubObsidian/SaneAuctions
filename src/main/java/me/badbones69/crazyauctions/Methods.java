@@ -1,6 +1,7 @@
 package me.badbones69.crazyauctions;
 
 import me.badbones69.crazyauctions.api.FileManager;
+import me.badbones69.crazyauctions.api.MemberManager;
 import me.badbones69.crazyauctions.api.FileManager.Files;
 import me.badbones69.crazyauctions.api.Messages;
 import me.badbones69.crazyauctions.api.Version;
@@ -211,17 +212,16 @@ public class Methods {
 		return true;
 	}
 	
-	public static Player getPlayer(String name) {
+	public static Player getPlayer(UUID uuid) {
 		try {
-			return Bukkit.getServer().getPlayer(name);
+			return Bukkit.getServer().getPlayer(uuid);
 		}catch(Exception e) {
 			return null;
 		}
 	}
 	
-	@SuppressWarnings("deprecation")
-	public static OfflinePlayer getOfflinePlayer(String name) {
-		return Bukkit.getServer().getOfflinePlayer(name);
+	public static OfflinePlayer getOfflinePlayer(UUID uuid) {
+		return Bukkit.getServer().getOfflinePlayer(uuid);
 	}
 	
 	public static Location getLoc(Player player) {
@@ -232,18 +232,18 @@ public class Methods {
 		player.performCommand(CMD);
 	}
 	
-	public static boolean isOnline(String name) {
+	public static boolean isOnline(UUID uuid) {
 		for(Player player : Bukkit.getServer().getOnlinePlayers()) {
-			if(player.getName().equalsIgnoreCase(name)) {
+			if(player.getUniqueId().equals(uuid)) {
 				return true;
 			}
 		}
 		return false;
 	}
 	
-	public static boolean isOnline(String name, CommandSender p) {
+	public static boolean isOnline(UUID uuid, CommandSender p) {
 		for(Player player : Bukkit.getServer().getOnlinePlayers()) {
-			if(player.getName().equalsIgnoreCase(name)) {
+			if(player.getUniqueId().equals(uuid)) {
 				return true;
 			}
 		}
@@ -375,23 +375,33 @@ public class Methods {
 			}
 		}
 		if(data.contains("Items")) {
+			
 			for(String i : data.getConfigurationSection("Items").getKeys(false)) {
 				expireTime.setTimeInMillis(data.getLong("Items." + i + ".Time-Till-Expire"));
 				fullExpireTime.setTimeInMillis(data.getLong("Items." + i + ".Full-Time"));
 				if(cal.after(expireTime)) {
 					int num = 1;
 					for(; data.contains("OutOfTime/Cancelled." + num); num++) ;
-					if(data.getBoolean("Items." + i + ".Biddable") && !data.getString("Items." + i + ".TopBidder").equalsIgnoreCase("None") && CurrencyManager.getMoney(getPlayer(data.getString("Items." + i + ".TopBidder"))) >= data.getInt("Items." + i + ".Price")) {
-						String winner = data.getString("Items." + i + ".TopBidder");
-						String seller = data.getString("Items." + i + ".Seller");
+					UUID topBidder = null;
+					String bidder = data.getString("Items." + i + ".TopBidder");
+					if(bidder != null)
+					{
+						topBidder = UUID.fromString(bidder);
+					}
+					
+					if(data.getBoolean("Items." + i + ".Biddable") && topBidder != null && CurrencyManager.getMoney(getPlayer(topBidder)) >= data.getInt("Items." + i + ".Price")) {
+						UUID winner = UUID.fromString(data.getString("Items." + i + ".TopBidder"));
+						UUID seller = UUID.fromString(data.getString("Items." + i + ".Seller"));
+						String winnerName = MemberManager.get().getNameFromUUID(winner);
+						
 						Long price = data.getLong("Items." + i + ".Price");
 						CurrencyManager.addMoney(getOfflinePlayer(seller), price);
 						CurrencyManager.removeMoney(getOfflinePlayer(winner), price);
 						HashMap<String, String> placeholders = new HashMap<>();
 						placeholders.put("%Price%", getPrice(i, false));
 						placeholders.put("%price%", getPrice(i, false));
-						placeholders.put("%Player%", winner);
-						placeholders.put("%player%", winner);
+						placeholders.put("%Player%", winnerName);
+						placeholders.put("%player%", winnerName);
 						if(isOnline(winner) && getPlayer(winner) != null) {
 							Player player = getPlayer(winner);
 							Bukkit.getPluginManager().callEvent(new AuctionWinBidEvent(player, data.getItemStack("Items." + i + ".Item"), price));
@@ -406,7 +416,7 @@ public class Methods {
 						data.set("OutOfTime/Cancelled." + num + ".StoreID", data.getInt("Items." + i + ".StoreID"));
 						data.set("OutOfTime/Cancelled." + num + ".Item", data.getItemStack("Items." + i + ".Item"));
 					}else {
-						String seller = data.getString("Items." + i + ".Seller");
+						UUID seller = UUID.fromString(data.getString("Items." + i + ".Seller"));
 						Player player = getPlayer(seller);
 						if(isOnline(seller) && getPlayer(seller) != null) {
 							player.sendMessage(Messages.ITEM_HAS_EXPIRED.getMessage());

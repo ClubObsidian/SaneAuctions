@@ -1,5 +1,6 @@
 package me.badbones69.crazyauctions.controllers;
 
+import me.badbones69.crazyauctions.Main;
 import me.badbones69.crazyauctions.Methods;
 import me.badbones69.crazyauctions.api.*;
 import me.badbones69.crazyauctions.api.FileManager.Files;
@@ -37,7 +38,7 @@ public class GUI implements Listener {
 	private static HashMap<Player, List<Integer>> List = new HashMap<>();
 	private static HashMap<Player, String> IDs = new HashMap<>();
 	private static CrazyAuctions crazyAuctions = CrazyAuctions.getInstance();
-	private static Plugin plugin = Bukkit.getServer().getPluginManager().getPlugin("CrazyAuctions");
+	private static Plugin plugin = Main.get();
 	
 	public static void openShop(Player player, ShopType sell, Category cat, int page) {
 		Methods.updateAuction();
@@ -62,9 +63,10 @@ public class GUI implements Listener {
 					String sellerName = MemberManager.get().getNameFromUUID(sellerUUID);
 					if(data.getBoolean("Items." + i + ".Biddable")) {
 						if(sell == ShopType.BID) {
-							String topbidder = data.getString("Items." + i + ".TopBidder");
+							UUID topBidder = UUID.fromString(data.getString("Items." + i + ".TopBidder"));
+							String topBidderName = MemberManager.get().getNameFromUUID(topBidder);
 							for(String l : config.getStringList("Settings.GUISettings.Bidding")) {
-								lore.add(l.replaceAll("%TopBid%", Methods.getPrice(i, false)).replaceAll("%topbid%", Methods.getPrice(i, false)).replaceAll("%Seller%", sellerName).replaceAll("%seller%", sellerName).replaceAll("%TopBidder%", topbidder).replaceAll("%topbidder%", topbidder).replaceAll("%Time%", Methods.convertToTime(data.getLong("Items." + i + ".Time-Till-Expire"))).replaceAll("%time%", Methods.convertToTime(data.getLong("Items." + i + ".Time-Till-Expire"))));
+								lore.add(l.replaceAll("%TopBid%", Methods.getPrice(i, false)).replaceAll("%topbid%", Methods.getPrice(i, false)).replaceAll("%Seller%", sellerName).replaceAll("%seller%", sellerName).replaceAll("%TopBidder%", topBidderName).replaceAll("%topbidder%", topBidderName).replaceAll("%Time%", Methods.convertToTime(data.getLong("Items." + i + ".Time-Till-Expire"))).replaceAll("%time%", Methods.convertToTime(data.getLong("Items." + i + ".Time-Till-Expire"))));
 							}
 							items.add(Methods.addLore(data.getItemStack("Items." + i + ".Item").clone(), lore));
 							ID.add(data.getInt("Items." + i + ".StoreID"));
@@ -663,12 +665,12 @@ public class GUI implements Listener {
 													if(e.getAction() == InventoryAction.MOVE_TO_OTHER_INVENTORY) {
 														int num = 1;
 														for(; data.contains("OutOfTime/Cancelled." + num); num++) ;
-														String seller = data.getString("Items." + i + ".Seller");
-														Player sellerPlayer = Methods.getPlayer(seller);
-														if(Methods.isOnline(seller) && sellerPlayer != null) {
+														UUID sellerUUID = UUID.fromString(data.getString("Items." + i + ".Seller"));
+														Player sellerPlayer = Methods.getPlayer(sellerUUID);
+														if(Methods.isOnline(sellerUUID) && sellerPlayer != null) {
 															sellerPlayer.sendMessage(Messages.ADMIN_FORCE_CANCELLED_TO_PLAYER.getMessage());
 														}
-														AuctionCancelledEvent event = new AuctionCancelledEvent((sellerPlayer != null ? sellerPlayer : Bukkit.getOfflinePlayer(seller)), data.getItemStack("Items." + i + ".Item"), CancelledReason.ADMIN_FORCE_CANCEL);
+														AuctionCancelledEvent event = new AuctionCancelledEvent((sellerPlayer != null ? sellerPlayer : Bukkit.getOfflinePlayer(sellerUUID)), data.getItemStack("Items." + i + ".Item"), CancelledReason.ADMIN_FORCE_CANCEL);
 														Bukkit.getPluginManager().callEvent(event);
 														data.set("OutOfTime/Cancelled." + num + ".Seller", data.getString("Items." + i + ".Seller"));
 														data.set("OutOfTime/Cancelled." + num + ".Full-Time", data.getLong("Items." + i + ".Full-Time"));
@@ -762,7 +764,7 @@ public class GUI implements Listener {
 								if(item.getItemMeta().getDisplayName().equals(Methods.color(config.getString("Settings.GUISettings.OtherSettings.Confirm.Name")))) {
 									String ID = IDs.get(player);
 									long cost = data.getLong("Items." + ID + ".Price");
-									String seller = data.getString("Items." + ID + ".Seller");
+									UUID seller = UUID.fromString(data.getString("Items." + ID + ".Seller"));
 									if(!data.contains("Items." + ID)) {
 										playClick(player);
 										openShop(player, shopType.get(player), shopCategory.get(player), 1);
