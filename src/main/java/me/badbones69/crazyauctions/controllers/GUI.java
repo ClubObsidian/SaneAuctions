@@ -168,6 +168,7 @@ public class GUI implements Listener {
 	}
 	
 	public static void openPlayersCurrentList(Player player, int page) {
+		String uuid = player.getUniqueId().toString();
 		Methods.updateAuction();
 		FileConfiguration config = Files.CONFIG.getFile();
 		FileConfiguration data = Files.DATA.getFile();
@@ -194,7 +195,7 @@ public class GUI implements Listener {
 		}
 		if(data.contains("Items")) {
 			for(String i : data.getConfigurationSection("Items").getKeys(false)) {
-				if(data.getString("Items." + i + ".Seller").equalsIgnoreCase(player.getName())) {
+				if(data.getString("Items." + i + ".Seller").equalsIgnoreCase(uuid)) {
 					List<String> lore = new ArrayList<>();
 					for(String l : config.getStringList("Settings.GUISettings.CurrentLore")) {
 						lore.add(l.replaceAll("%Price%", Methods.getPrice(i, false)).replaceAll("%price%", Methods.getPrice(i, false)).replaceAll("%Time%", Methods.convertToTime(data.getLong("Items." + i + ".Time-Till-Expire"))).replaceAll("%time%", Methods.convertToTime(data.getLong("Items." + i + ".Time-Till-Expire"))));
@@ -214,6 +215,7 @@ public class GUI implements Listener {
 	}
 	
 	public static void openPlayersExpiredList(Player player, int page) {
+		String uuid = player.getUniqueId().toString();
 		Methods.updateAuction();
 		FileConfiguration config = Files.CONFIG.getFile();
 		FileConfiguration data = Files.DATA.getFile();
@@ -222,7 +224,7 @@ public class GUI implements Listener {
 		if(data.contains("OutOfTime/Cancelled")) {
 			for(String i : data.getConfigurationSection("OutOfTime/Cancelled").getKeys(false)) {
 				if(data.getString("OutOfTime/Cancelled." + i + ".Seller") != null) {
-					if(data.getString("OutOfTime/Cancelled." + i + ".Seller").equalsIgnoreCase(player.getName())) {
+					if(data.getString("OutOfTime/Cancelled." + i + ".Seller").equalsIgnoreCase(uuid)) {
 						List<String> lore = new ArrayList<>();
 						for(String l : config.getStringList("Settings.GUISettings.Cancelled/ExpiredLore")) {
 							lore.add(l.replaceAll("%Price%", Methods.getPrice(i, true)).replaceAll("%price%", Methods.getPrice(i, true)).replaceAll("%Time%", Methods.convertToTime(data.getLong("OutOfTime/Cancelled." + i + ".Full-Time"))).replaceAll("%time%", Methods.convertToTime(data.getLong("OutOfTime/Cancelled." + i + ".Full-Time"))));

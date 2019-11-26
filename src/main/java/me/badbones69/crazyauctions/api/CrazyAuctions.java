@@ -40,11 +40,12 @@ public class CrazyAuctions {
 	}
 	
 	public ArrayList<ItemStack> getItems(Player player) {
+		String uuid = player.getUniqueId().toString();
 		FileConfiguration data = Files.DATA.getFile();
 		ArrayList<ItemStack> items = new ArrayList<>();
 		if(data.contains("Items")) {
 			for(String i : data.getConfigurationSection("Items").getKeys(false)) {
-				if(data.getString("Items." + i + ".Seller").equalsIgnoreCase(player.getName())) {
+				if(data.getString("Items." + i + ".Seller").equalsIgnoreCase(uuid)) {
 					items.add(data.getItemStack("Items." + i + ".Item").clone());
 				}
 			}
@@ -53,11 +54,12 @@ public class CrazyAuctions {
 	}
 	
 	public ArrayList<ItemStack> getItems(Player player, ShopType type) {
+		String uuid = player.getUniqueId().toString();
 		FileConfiguration data = Files.DATA.getFile();
 		ArrayList<ItemStack> items = new ArrayList<>();
 		if(data.contains("Items")) {
 			for(String i : data.getConfigurationSection("Items").getKeys(false)) {
-				if(data.getString("Items." + i + ".Seller").equalsIgnoreCase(player.getName())) {
+				if(data.getString("Items." + i + ".Seller").equalsIgnoreCase(uuid)) {
 					if(data.getBoolean("Items." + i + ".Biddable")) {
 						if(type == ShopType.BID) {
 							items.add(data.getItemStack("Items." + i + ".Item").clone());
