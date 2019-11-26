@@ -1,8 +1,7 @@
-name: CrazyAuctions
-author: BadBones69
+name: SaneAuctions
+authors: [BadBones69, virustotalop]
 main: me.badbones69.crazyauctions.Main
-website: https://www.spigotmc.org/resources/authors/kicjow.9719/
-version: ${version}${build.number}
+version: "1.0.0"
 depend: [Vault]
 api-version: 1.13
 description: >

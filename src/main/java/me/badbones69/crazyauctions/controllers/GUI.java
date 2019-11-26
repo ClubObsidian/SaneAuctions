@@ -61,10 +61,10 @@ public class GUI implements Listener {
 					if(data.getBoolean("Items." + i + ".Biddable")) {
 						if(sell == ShopType.BID) {
 							UUID sellerUUID = UUID.fromString(data.getString("Items." + i + ".Seller"));
-							String seller = MemberManager.get().getNameFromUUID(sellerUUID);
+							String sellerName = MemberManager.get().getNameFromUUID(sellerUUID);
 							String topbidder = data.getString("Items." + i + ".TopBidder");
 							for(String l : config.getStringList("Settings.GUISettings.Bidding")) {
-								lore.add(l.replaceAll("%TopBid%", Methods.getPrice(i, false)).replaceAll("%topbid%", Methods.getPrice(i, false)).replaceAll("%Seller%", seller).replaceAll("%seller%", seller).replaceAll("%TopBidder%", topbidder).replaceAll("%topbidder%", topbidder).replaceAll("%Time%", Methods.convertToTime(data.getLong("Items." + i + ".Time-Till-Expire"))).replaceAll("%time%", Methods.convertToTime(data.getLong("Items." + i + ".Time-Till-Expire"))));
+								lore.add(l.replaceAll("%TopBid%", Methods.getPrice(i, false)).replaceAll("%topbid%", Methods.getPrice(i, false)).replaceAll("%Seller%", sellerName).replaceAll("%seller%", sellerName).replaceAll("%TopBidder%", topbidder).replaceAll("%topbidder%", topbidder).replaceAll("%Time%", Methods.convertToTime(data.getLong("Items." + i + ".Time-Till-Expire"))).replaceAll("%time%", Methods.convertToTime(data.getLong("Items." + i + ".Time-Till-Expire"))));
 							}
 							items.add(Methods.addLore(data.getItemStack("Items." + i + ".Item").clone(), lore));
 							ID.add(data.getInt("Items." + i + ".StoreID"));
