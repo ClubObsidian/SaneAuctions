@@ -765,7 +765,13 @@ public class GUI implements Listener {
 								if(item.getItemMeta().getDisplayName().equals(Methods.color(config.getString("Settings.GUISettings.OtherSettings.Confirm.Name")))) {
 									String ID = IDs.get(player);
 									long cost = data.getLong("Items." + ID + ".Price");
-									UUID seller = UUID.fromString(data.getString("Items." + ID + ".Seller"));
+									UUID seller = null;
+									String sellerUUIDString = data.getString("Items." + ID + ".Seller");
+									if(sellerUUIDString != null)
+									{
+										seller = UUID.fromString(sellerUUIDString);
+									}
+									
 									if(!data.contains("Items." + ID)) {
 										playClick(player);
 										openShop(player, shopType.get(player), shopCategory.get(player), 1);
