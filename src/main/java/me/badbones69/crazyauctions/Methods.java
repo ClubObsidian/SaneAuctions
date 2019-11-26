@@ -391,8 +391,9 @@ public class Methods {
 					
 					if(data.getBoolean("Items." + i + ".Biddable") && topBidder != null && CurrencyManager.getMoney(getPlayer(topBidder)) >= data.getInt("Items." + i + ".Price")) {
 						UUID winner = UUID.fromString(data.getString("Items." + i + ".TopBidder"));
-						UUID seller = UUID.fromString(data.getString("Items." + i + ".Seller"));
+						String winnerUUIDString = winner.toString();
 						String winnerName = MemberManager.get().getNameFromUUID(winner);
+						UUID seller = UUID.fromString(data.getString("Items." + i + ".Seller"));
 						
 						Long price = data.getLong("Items." + i + ".Price");
 						CurrencyManager.addMoney(getOfflinePlayer(seller), price);
@@ -411,19 +412,21 @@ public class Methods {
 							Player player = getPlayer(seller);
 							player.sendMessage(Messages.SOMEONE_WON_PLAYERS_BID.getMessage(placeholders));
 						}
-						data.set("OutOfTime/Cancelled." + num + ".Seller", winner);
+						data.set("OutOfTime/Cancelled." + num + ".Seller", winnerUUIDString);
 						data.set("OutOfTime/Cancelled." + num + ".Full-Time", fullExpireTime.getTimeInMillis());
 						data.set("OutOfTime/Cancelled." + num + ".StoreID", data.getInt("Items." + i + ".StoreID"));
 						data.set("OutOfTime/Cancelled." + num + ".Item", data.getItemStack("Items." + i + ".Item"));
 					}else {
 						UUID seller = UUID.fromString(data.getString("Items." + i + ".Seller"));
+						String sellerUUIDString = seller.toString();
+						
 						Player player = getPlayer(seller);
 						if(isOnline(seller) && getPlayer(seller) != null) {
 							player.sendMessage(Messages.ITEM_HAS_EXPIRED.getMessage());
 						}
 						AuctionExpireEvent event = new AuctionExpireEvent(player, data.getItemStack("Items." + i + ".Item"));
 						Bukkit.getPluginManager().callEvent(event);
-						data.set("OutOfTime/Cancelled." + num + ".Seller", data.getString("Items." + i + ".Seller"));
+						data.set("OutOfTime/Cancelled." + num + ".Seller", sellerUUIDString);
 						data.set("OutOfTime/Cancelled." + num + ".Full-Time", fullExpireTime.getTimeInMillis());
 						data.set("OutOfTime/Cancelled." + num + ".StoreID", data.getInt("Items." + i + ".StoreID"));
 						data.set("OutOfTime/Cancelled." + num + ".Item", data.getItemStack("Items." + i + ".Item"));
