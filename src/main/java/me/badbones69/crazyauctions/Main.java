@@ -257,7 +257,7 @@ public class Main extends JavaPlugin implements Listener {
 								}
 							}
 						}
-						String seller = player.getName();
+						String seller = player.getUniqueId().toString();
 						// For testing as another player
 						//String seller = "Test-Account";
 						int num = 1;
