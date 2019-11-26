@@ -29,4 +29,5 @@ shadowJar {
 
 dependencies {
 	compileOnly 'org.bukkit:bukkit:1.12.2-R0.1-SNAPSHOT'
+	compile 'org.mapdb:mapdb:3.0.7'
 }

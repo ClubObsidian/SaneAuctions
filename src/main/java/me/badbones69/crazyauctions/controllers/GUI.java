@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 import java.util.logging.Level;
 
 public class GUI implements Listener {
@@ -59,7 +60,8 @@ public class GUI implements Listener {
 				if(cat.getItems().contains(data.getItemStack("Items." + i + ".Item").getType()) || cat == Category.NONE) {
 					if(data.getBoolean("Items." + i + ".Biddable")) {
 						if(sell == ShopType.BID) {
-							String seller = data.getString("Items." + i + ".Seller");
+							UUID sellerUUID = UUID.fromString(data.getString("Items." + i + ".Seller"));
+							String seller = MemberManager.get().getNameFromUUID(sellerUUID);
 							String topbidder = data.getString("Items." + i + ".TopBidder");
 							for(String l : config.getStringList("Settings.GUISettings.Bidding")) {
 								lore.add(l.replaceAll("%TopBid%", Methods.getPrice(i, false)).replaceAll("%topbid%", Methods.getPrice(i, false)).replaceAll("%Seller%", seller).replaceAll("%seller%", seller).replaceAll("%TopBidder%", topbidder).replaceAll("%topbidder%", topbidder).replaceAll("%Time%", Methods.convertToTime(data.getLong("Items." + i + ".Time-Till-Expire"))).replaceAll("%time%", Methods.convertToTime(data.getLong("Items." + i + ".Time-Till-Expire"))));
