@@ -26,17 +26,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.UUID;
 import java.util.logging.Level;
 
 public class GUI implements Listener {
 	
-	private static HashMap<Player, Integer> bidding = new HashMap<>();
-	private static HashMap<Player, String> biddingID = new HashMap<>();
-	private static HashMap<Player, ShopType> shopType = new HashMap<>(); // Shop Type
-	private static HashMap<Player, Category> shopCategory = new HashMap<>(); // Category Type
-	private static HashMap<Player, List<Integer>> List = new HashMap<>();
-	private static HashMap<Player, String> IDs = new HashMap<>();
+	private static Map<Player, Integer> bidding = new HashMap<>();
+	private static Map<Player, String> biddingID = new HashMap<>();
+	private static Map<Player, ShopType> shopType = new HashMap<>(); // Shop Type
+	private static Map<Player, Category> shopCategory = new HashMap<>(); // Category Type
+	private static Map<Player, List<Integer>> List = new HashMap<>();
+	private static Map<Player, String> IDs = new HashMap<>();
 	private static CrazyAuctions crazyAuctions = CrazyAuctions.getInstance();
 	private static Plugin plugin = Main.get();
 	
