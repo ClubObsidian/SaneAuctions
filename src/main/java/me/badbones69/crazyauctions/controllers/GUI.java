@@ -529,7 +529,7 @@ public class GUI implements Listener {
 									int bid = bidding.get(player);
 									String topBidder = data.getString("Items." + ID + ".TopBidder");
 									if(CurrencyManager.getMoney(player) < bid) {
-										HashMap<String, String> placeholders = new HashMap<>();
+										Map<String, String> placeholders = new HashMap<>();
 										placeholders.put("%Money_Needed%", (bid - CurrencyManager.getMoney(player)) + "");
 										placeholders.put("%money_needed%", (bid - CurrencyManager.getMoney(player)) + "");
 										player.sendMessage(Messages.NEED_MORE_MONEY.getMessage(placeholders));
@@ -546,7 +546,7 @@ public class GUI implements Listener {
 									Bukkit.getPluginManager().callEvent(new AuctionNewBidEvent(player, data.getItemStack("Items." + ID + ".Item"), bid));
 									data.set("Items." + ID + ".Price", bid);
 									data.set("Items." + ID + ".TopBidder", uuid);
-									HashMap<String, String> placeholders = new HashMap<>();
+									Map<String, String> placeholders = new HashMap<>();
 									placeholders.put("%Bid%", bid + "");
 									player.sendMessage(Messages.BID_MESSAGE.getMessage(placeholders));
 									Files.DATA.saveFile();
@@ -787,7 +787,7 @@ public class GUI implements Listener {
 									if(CurrencyManager.getMoney(player) < cost) {
 										playClick(player);
 										player.closeInventory();
-										HashMap<String, String> placeholders = new HashMap<>();
+										Map<String, String> placeholders = new HashMap<>();
 										placeholders.put("%Money_Needed%", (cost - CurrencyManager.getMoney(player)) + "");
 										placeholders.put("%money_needed%", (cost - CurrencyManager.getMoney(player)) + "");
 										player.sendMessage(Messages.NEED_MORE_MONEY.getMessage(placeholders));
@@ -797,7 +797,7 @@ public class GUI implements Listener {
 									Bukkit.getPluginManager().callEvent(new AuctionBuyEvent(player, i, cost));
 									CurrencyManager.removeMoney(player, cost);
 									CurrencyManager.addMoney(Methods.getOfflinePlayer(seller), cost);
-									HashMap<String, String> placeholders = new HashMap<>();
+									Map<String, String> placeholders = new HashMap<>();
 									placeholders.put("%Price%", Methods.getPrice(ID, false));
 									placeholders.put("%price%", Methods.getPrice(ID, false));
 									placeholders.put("%Player%", player.getName());

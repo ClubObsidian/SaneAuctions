@@ -7,6 +7,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public enum Messages {
 	
@@ -77,7 +78,7 @@ public enum Messages {
 		return message;
 	}
 	
-	public static String convertList(List<String> list, HashMap<String, String> placeholders) {
+	public static String convertList(List<String> list, Map<String, String> placeholders) {
 		String message = "";
 		for(String m : list) {
 			message += Methods.color(m) + "\n";
@@ -122,7 +123,7 @@ public enum Messages {
 		}
 	}
 	
-	public String getMessage(HashMap<String, String> placeholders) {
+	public String getMessage(Map<String, String> placeholders) {
 		String message;
 		if(isList()) {
 			if(exists()) {
