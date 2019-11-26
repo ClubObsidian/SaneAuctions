@@ -41,6 +41,7 @@ public class Main extends JavaPlugin implements Listener {
 			saveDefaultConfig();
 		}
 		Messages.addMissingMessages();
+		MemberManager.get();
 	}
 	
 	@Override
