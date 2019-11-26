@@ -100,19 +100,15 @@ public class MemberManager implements Listener {
 				.hashMap("string-member-names", Serializer.STRING, Serializer.UUID)
 				.createOrOpen();
 	}
-	
+
 	private void startMemberNameUpdate()
 	{
-		Bukkit.getScheduler().runTaskTimerAsynchronously(Main.get(), new Runnable()
+		Bukkit.getScheduler().runTaskTimerAsynchronously(Main.get(), () ->
 		{
-			@Override
-			public void run()
+			if(this.databaseModified.get())
 			{
-				if(databaseModified.get())
-				{
-					nameDatabase.commit();
-					databaseModified.set(false);
-				}
+				this.nameDatabase.commit();
+				this.databaseModified.set(false);
 			}
 		}, 1L, 1L);
 	}
