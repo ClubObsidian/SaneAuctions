@@ -384,7 +384,7 @@ public class Methods {
 					for(; data.contains("OutOfTime/Cancelled." + num); num++) ;
 					UUID topBidder = null;
 					String bidder = data.getString("Items." + i + ".TopBidder");
-					if(bidder != null)
+					if(bidder != null && !bidder.equalsIgnoreCase("none"))
 					{
 						topBidder = UUID.fromString(bidder);
 					}
