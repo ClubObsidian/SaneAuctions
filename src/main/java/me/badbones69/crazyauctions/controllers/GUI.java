@@ -64,8 +64,11 @@ public class GUI implements Listener {
 					String sellerName = MemberManager.get().getNameFromUUID(sellerUUID);
 					if(data.getBoolean("Items." + i + ".Biddable")) {
 						if(sell == ShopType.BID) {
-							UUID topBidder = UUID.fromString(data.getString("Items." + i + ".TopBidder"));
-							String topBidderName = MemberManager.get().getNameFromUUID(topBidder);
+							String topBidderName = data.getString("Items." + i + ".TopBidder");
+							if(!topBidderName.equalsIgnoreCase("None")) {
+								UUID topBidder = UUID.fromString(topBidderName);
+								topBidderName = MemberManager.get().getNameFromUUID(topBidder);
+							}
 							for(String l : config.getStringList("Settings.GUISettings.Bidding")) {
 								lore.add(l.replaceAll("%TopBid%", Methods.getPrice(i, false)).replaceAll("%topbid%", Methods.getPrice(i, false)).replaceAll("%Seller%", sellerName).replaceAll("%seller%", sellerName).replaceAll("%TopBidder%", topBidderName).replaceAll("%topbidder%", topBidderName).replaceAll("%Time%", Methods.convertToTime(data.getLong("Items." + i + ".Time-Till-Expire"))).replaceAll("%time%", Methods.convertToTime(data.getLong("Items." + i + ".Time-Till-Expire"))));
 							}
