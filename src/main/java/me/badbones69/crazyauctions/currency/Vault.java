@@ -103,7 +103,7 @@ public class Vault {
 		{
 			try 
 			{
-				Vault.withdrawPlayerMethod.invoke(Vault.economy, playerWrapper.getPlayer(), amtDouble);
+				Vault.withdrawPlayerMethod.invoke(Vault.economy, playerWrapper, amtDouble);
 				return true;
 			} 
 			catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) 
@@ -135,7 +135,7 @@ public class Vault {
 		
 		try 
 		{
-			Vault.depositPlayerMethod.invoke(Vault.economy, playerWrapper.getPlayer(), amt.doubleValue());
+			Vault.depositPlayerMethod.invoke(Vault.economy, playerWrapper, amt.doubleValue());
 		} 
 		catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) 
 		{
