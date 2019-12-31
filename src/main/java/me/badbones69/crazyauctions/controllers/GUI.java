@@ -800,6 +800,9 @@ public class GUI implements Listener {
 									Bukkit.getPluginManager().callEvent(new AuctionBuyEvent(player, i, cost));
 									CurrencyManager.removeMoney(player, cost);
 									CurrencyManager.addMoney(Methods.getOfflinePlayer(seller), cost);
+									Main.get().getLogger().info(player.getUniqueId() + " spent " + cost + " on " + i);
+									Main.get().getLogger().info(seller + " received " + cost + " from selling " + i);
+									
 									Map<String, String> placeholders = new HashMap<>();
 									placeholders.put("%Price%", Methods.getPrice(ID, false));
 									placeholders.put("%price%", Methods.getPrice(ID, false));
