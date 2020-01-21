@@ -9,4 +9,4 @@ description: >
 commands:
   ca:
     description: Opens the Crazy Auctions GUI.
-    aliases: [crazyauction, crazyauctions, ah, hdv]
+    aliases: [saneauction, saneauctions, crazyauction, crazyauctions, ah, auc, auction, auctions, hdv]
