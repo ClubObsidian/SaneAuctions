@@ -1,12 +1,12 @@
-package me.badbones69.crazyauctions.currency;
-
-import me.badbones69.crazyauctions.api.FileManager.Files;
+package com.clubobsidian.saneauctions.currency;
 
 import java.math.BigDecimal;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
+
+import com.clubobsidian.saneauctions.api.FileManager.Files;
 
 public enum CurrencyManager { // Currency Manager
 	

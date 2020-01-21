@@ -1,13 +1,5 @@
-package me.badbones69.crazyauctions;
+package com.clubobsidian.saneauctions;
 
-import me.badbones69.crazyauctions.api.FileManager;
-import me.badbones69.crazyauctions.api.MemberManager;
-import me.badbones69.crazyauctions.api.FileManager.Files;
-import me.badbones69.crazyauctions.api.Messages;
-import me.badbones69.crazyauctions.api.Version;
-import me.badbones69.crazyauctions.api.events.AuctionExpireEvent;
-import me.badbones69.crazyauctions.api.events.AuctionWinBidEvent;
-import me.badbones69.crazyauctions.currency.CurrencyManager;
 import org.bukkit.*;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -16,6 +8,15 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
+
+import com.clubobsidian.saneauctions.api.FileManager;
+import com.clubobsidian.saneauctions.api.MemberManager;
+import com.clubobsidian.saneauctions.api.Messages;
+import com.clubobsidian.saneauctions.api.Version;
+import com.clubobsidian.saneauctions.api.FileManager.Files;
+import com.clubobsidian.saneauctions.api.events.AuctionExpireEvent;
+import com.clubobsidian.saneauctions.api.events.AuctionWinBidEvent;
+import com.clubobsidian.saneauctions.currency.CurrencyManager;
 
 import java.util.*;
 

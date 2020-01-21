@@ -1,6 +1,6 @@
 name: SaneAuctions
 authors: [BadBones69, virustotalop]
-main: me.badbones69.crazyauctions.Main
+main: com.clubobsidian.saneauctions.Main
 version: "1.0.0"
 depend: [Vault]
 api-version: 1.13
@@ -9,4 +9,4 @@ description: >
 commands:
   ca:
     description: Opens the Crazy Auctions GUI.
-    aliases: [saneauction, saneauctions, crazyauction, crazyauctions, ah, auc, auction, auctions, hdv]
+    aliases: [saneauction, saneauctions, crazyauction, crazyauctions, ah, auc, aucs, auction, auctions, hdv]

@@ -1,4 +1,4 @@
-package me.badbones69.crazyauctions.api;
+package com.clubobsidian.saneauctions.api;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;

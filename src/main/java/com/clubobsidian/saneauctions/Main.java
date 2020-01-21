@@ -1,10 +1,4 @@
-package me.badbones69.crazyauctions;
-
-import me.badbones69.crazyauctions.api.*;
-import me.badbones69.crazyauctions.api.FileManager.Files;
-import me.badbones69.crazyauctions.api.events.AuctionListEvent;
-import me.badbones69.crazyauctions.controllers.GUI;
-import me.badbones69.crazyauctions.currency.Vault;
+package com.clubobsidian.saneauctions;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -16,6 +10,12 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.permissions.PermissionAttachmentInfo;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
+
+import com.clubobsidian.saneauctions.api.*;
+import com.clubobsidian.saneauctions.api.FileManager.Files;
+import com.clubobsidian.saneauctions.api.events.AuctionListEvent;
+import com.clubobsidian.saneauctions.controllers.GUI;
+import com.clubobsidian.saneauctions.currency.Vault;
 
 import java.util.ArrayList;
 import java.util.HashMap;

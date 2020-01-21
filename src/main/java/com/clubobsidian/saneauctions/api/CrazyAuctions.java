@@ -1,9 +1,10 @@
-package me.badbones69.crazyauctions.api;
+package com.clubobsidian.saneauctions.api;
 
-import me.badbones69.crazyauctions.api.FileManager.Files;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+
+import com.clubobsidian.saneauctions.api.FileManager.Files;
 
 import java.util.ArrayList;
 

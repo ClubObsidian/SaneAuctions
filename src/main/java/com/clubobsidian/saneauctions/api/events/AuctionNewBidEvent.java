@@ -1,4 +1,4 @@
-package me.badbones69.crazyauctions.api.events;
+package com.clubobsidian.saneauctions.api.events;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -7,12 +7,9 @@ import org.bukkit.inventory.ItemStack;
 
 /**
  *
- * @author BadBones69
- *
- * This event is fired when a bidding item's time has run out and so a player wins the item.
- *
+ * This event is fired when a player places a new bid onto an item in the auction house.
  */
-public class AuctionWinBidEvent extends Event {
+public class AuctionNewBidEvent extends Event {
 	
 	private static final HandlerList handlers = new HandlerList();
 	private Player player;
@@ -25,7 +22,7 @@ public class AuctionWinBidEvent extends Event {
 	 * @param item
 	 * @param bid
 	 */
-	public AuctionWinBidEvent(Player player, ItemStack item, long bid) {
+	public AuctionNewBidEvent(Player player, ItemStack item, long bid) {
 		this.player = player;
 		this.item = item;
 		this.bid = bid;

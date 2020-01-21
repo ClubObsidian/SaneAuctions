@@ -1,4 +1,4 @@
-package me.badbones69.crazyauctions.api.enums;
+package com.clubobsidian.saneauctions.api.enums;
 
 public enum CancelledReason {
 	

@@ -1,6 +1,5 @@
-package me.badbones69.crazyauctions.api.events;
+package com.clubobsidian.saneauctions.api.events;
 
-import me.badbones69.crazyauctions.api.enums.CancelledReason;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -11,40 +10,37 @@ import org.bukkit.inventory.ItemStack;
  *
  * @author BadBones69
  *
- * This event is fired when a player's item is cancelled.
+ * This event is fired when a player item expires.
  *
  */
-public class AuctionCancelledEvent extends Event {
+public class AuctionExpireEvent extends Event {
 	
 	private static final HandlerList handlers = new HandlerList();
 	private OfflinePlayer offlinePlayer;
 	private Player onlinePlayer;
 	private boolean isOnline;
 	private ItemStack item;
-	private CancelledReason reason;
 	
 	/**
 	 *
-	 * @param offlinePlayer The player who's item is cancelled.
-	 * @param item The item that is cancelled.
+	 * @param offlinePlayer The player who's item is expiring.
+	 * @param item The item that is expiring.
 	 */
-	public AuctionCancelledEvent(OfflinePlayer offlinePlayer, ItemStack item, CancelledReason reason) {
+	public AuctionExpireEvent(OfflinePlayer offlinePlayer, ItemStack item) {
 		this.offlinePlayer = offlinePlayer;
 		this.item = item;
 		this.isOnline = false;
-		this.reason = reason;
 	}
 	
 	/**
 	 *
-	 * @param onlinePlayer The player who's item is cancelled.
-	 * @param item The item that is cancelled.
+	 * @param onlinePlayer The player who's item is expiring.
+	 * @param item The item that is expiring.
 	 */
-	public AuctionCancelledEvent(Player onlinePlayer, ItemStack item, CancelledReason reason) {
+	public AuctionExpireEvent(Player onlinePlayer, ItemStack item) {
 		this.onlinePlayer = onlinePlayer;
 		this.item = item;
 		this.isOnline = true;
-		this.reason = reason;
 	}
 	
 	public static HandlerList getHandlerList() {
@@ -69,10 +65,6 @@ public class AuctionCancelledEvent extends Event {
 	
 	public ItemStack getItem() {
 		return item;
-	}
-	
-	public CancelledReason getReason() {
-		return reason;
 	}
 	
 }

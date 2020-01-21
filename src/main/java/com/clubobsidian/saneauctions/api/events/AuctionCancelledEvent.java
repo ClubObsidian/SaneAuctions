@@ -1,4 +1,4 @@
-package me.badbones69.crazyauctions.api.events;
+package com.clubobsidian.saneauctions.api.events;
 
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -6,41 +6,46 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.bukkit.inventory.ItemStack;
 
+import com.clubobsidian.saneauctions.api.enums.CancelledReason;
+
 /**
  *
  * @author BadBones69
  *
- * This event is fired when a player item expires.
+ * This event is fired when a player's item is cancelled.
  *
  */
-public class AuctionExpireEvent extends Event {
+public class AuctionCancelledEvent extends Event {
 	
 	private static final HandlerList handlers = new HandlerList();
 	private OfflinePlayer offlinePlayer;
 	private Player onlinePlayer;
 	private boolean isOnline;
 	private ItemStack item;
+	private CancelledReason reason;
 	
 	/**
 	 *
-	 * @param offlinePlayer The player who's item is expiring.
-	 * @param item The item that is expiring.
+	 * @param offlinePlayer The player who's item is cancelled.
+	 * @param item The item that is cancelled.
 	 */
-	public AuctionExpireEvent(OfflinePlayer offlinePlayer, ItemStack item) {
+	public AuctionCancelledEvent(OfflinePlayer offlinePlayer, ItemStack item, CancelledReason reason) {
 		this.offlinePlayer = offlinePlayer;
 		this.item = item;
 		this.isOnline = false;
+		this.reason = reason;
 	}
 	
 	/**
 	 *
-	 * @param onlinePlayer The player who's item is expiring.
-	 * @param item The item that is expiring.
+	 * @param onlinePlayer The player who's item is cancelled.
+	 * @param item The item that is cancelled.
 	 */
-	public AuctionExpireEvent(Player onlinePlayer, ItemStack item) {
+	public AuctionCancelledEvent(Player onlinePlayer, ItemStack item, CancelledReason reason) {
 		this.onlinePlayer = onlinePlayer;
 		this.item = item;
 		this.isOnline = true;
+		this.reason = reason;
 	}
 	
 	public static HandlerList getHandlerList() {
@@ -65,6 +70,10 @@ public class AuctionExpireEvent extends Event {
 	
 	public ItemStack getItem() {
 		return item;
+	}
+	
+	public CancelledReason getReason() {
+		return reason;
 	}
 	
 }

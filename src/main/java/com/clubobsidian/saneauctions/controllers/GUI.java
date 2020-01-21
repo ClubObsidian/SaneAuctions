@@ -1,14 +1,5 @@
-package me.badbones69.crazyauctions.controllers;
+package com.clubobsidian.saneauctions.controllers;
 
-import me.badbones69.crazyauctions.Main;
-import me.badbones69.crazyauctions.Methods;
-import me.badbones69.crazyauctions.api.*;
-import me.badbones69.crazyauctions.api.FileManager.Files;
-import me.badbones69.crazyauctions.api.enums.CancelledReason;
-import me.badbones69.crazyauctions.api.events.AuctionBuyEvent;
-import me.badbones69.crazyauctions.api.events.AuctionCancelledEvent;
-import me.badbones69.crazyauctions.api.events.AuctionNewBidEvent;
-import me.badbones69.crazyauctions.currency.CurrencyManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -21,6 +12,16 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
+
+import com.clubobsidian.saneauctions.Main;
+import com.clubobsidian.saneauctions.Methods;
+import com.clubobsidian.saneauctions.api.*;
+import com.clubobsidian.saneauctions.api.FileManager.Files;
+import com.clubobsidian.saneauctions.api.enums.CancelledReason;
+import com.clubobsidian.saneauctions.api.events.AuctionBuyEvent;
+import com.clubobsidian.saneauctions.api.events.AuctionCancelledEvent;
+import com.clubobsidian.saneauctions.api.events.AuctionNewBidEvent;
+import com.clubobsidian.saneauctions.currency.CurrencyManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;

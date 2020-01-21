@@ -1,4 +1,4 @@
-package me.badbones69.crazyauctions.api.events;
+package com.clubobsidian.saneauctions.api.events;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -7,25 +7,28 @@ import org.bukkit.inventory.ItemStack;
 
 /**
  *
- * This event is fired when a player places a new bid onto an item in the auction house.
+ * @author BadBones69
+ *
+ * This event is fired when a player buys something from the selling auction house.
+ *
  */
-public class AuctionNewBidEvent extends Event {
+public class AuctionBuyEvent extends Event {
 	
 	private static final HandlerList handlers = new HandlerList();
 	private Player player;
-	private long bid;
+	private long price;
 	private ItemStack item;
 	
 	/**
 	 *
 	 * @param player
 	 * @param item
-	 * @param bid
+	 * @param price
 	 */
-	public AuctionNewBidEvent(Player player, ItemStack item, long bid) {
+	public AuctionBuyEvent(Player player, ItemStack item, long price) {
 		this.player = player;
 		this.item = item;
-		this.bid = bid;
+		this.price = price;
 	}
 	
 	public static HandlerList getHandlerList() {
@@ -44,8 +47,8 @@ public class AuctionNewBidEvent extends Event {
 		return item;
 	}
 	
-	public long getBid() {
-		return bid;
+	public long getPrice() {
+		return price;
 	}
 	
 }

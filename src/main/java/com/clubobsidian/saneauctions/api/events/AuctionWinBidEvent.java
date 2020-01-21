@@ -1,6 +1,5 @@
-package me.badbones69.crazyauctions.api.events;
+package com.clubobsidian.saneauctions.api.events;
 
-import me.badbones69.crazyauctions.api.ShopType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
@@ -10,29 +9,26 @@ import org.bukkit.inventory.ItemStack;
  *
  * @author BadBones69
  *
- * This event is fired when a new item is listed onto the auction house.
+ * This event is fired when a bidding item's time has run out and so a player wins the item.
  *
  */
-public class AuctionListEvent extends Event {
+public class AuctionWinBidEvent extends Event {
 	
 	private static final HandlerList handlers = new HandlerList();
 	private Player player;
-	private long price;
-	private ShopType shop;
+	private long bid;
 	private ItemStack item;
 	
 	/**
 	 *
 	 * @param player
-	 * @param shop
 	 * @param item
-	 * @param price
+	 * @param bid
 	 */
-	public AuctionListEvent(Player player, ShopType shop, ItemStack item, long price) {
+	public AuctionWinBidEvent(Player player, ItemStack item, long bid) {
 		this.player = player;
-		this.shop = shop;
 		this.item = item;
-		this.price = price;
+		this.bid = bid;
 	}
 	
 	public static HandlerList getHandlerList() {
@@ -47,16 +43,12 @@ public class AuctionListEvent extends Event {
 		return player;
 	}
 	
-	public ShopType getShopType() {
-		return shop;
-	}
-	
 	public ItemStack getItem() {
 		return item;
 	}
 	
-	public long getPrice() {
-		return price;
+	public long getBid() {
+		return bid;
 	}
 	
 }

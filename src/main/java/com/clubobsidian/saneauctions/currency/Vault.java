@@ -1,4 +1,4 @@
-package me.badbones69.crazyauctions.currency;
+package com.clubobsidian.saneauctions.currency;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

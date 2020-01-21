@@ -1,6 +1,6 @@
 Settings:
-  Prefix: '&7[&4Crazy &bAuctions&7]: ' #Prefix of when you get Crazy Auctions Messages.
-  GUIName: '&4Crazy &bAuctions&8' #Name of the Main GUI.
+  Prefix: '&7[&4Sane &bAuctions&7]: ' #Prefix of when you get Sane Auctions Messages.
+  GUIName: '&4Sane &bAuctions&8' #Name of the Main GUI.
   Players-Current-Items: '&8Your Current Listings' #The Name of the Player Current Items GUI.
   Cancelled/Expired-Items: '&8Canceled/Expired Listings' #Name of the Cancelled/Expired GUI.
   Buying-Item: '&8Purchase Item: Are You Sure?' #Name of the Buying GUI.
@@ -8,7 +8,7 @@ Settings:
   Categories: '&8Categories' #Name of the Category GUI.
   Sell-Time: 2d #The time that each item will sell for.
   Bid-Time: 2m 30s #Time for each item that is biddable.
-  Full-Expire-Time: 10d #The full time the item is in the crazy auctions.
+  Full-Expire-Time: 10d #The full time the item is in the Sane auctions.
   Bid-Winner-Time: 20d #The time the winner of a bid has to claim their prize.
   Minimum-Sell-Price: 10 #Minimum amount you can sell a item for.
   Max-Beginning-Sell-Price: 1000000 #Max amount you can sell a item for.
@@ -195,7 +195,7 @@ Settings:
           Slot: 54
           Name: '&6What Is This Page?'
           Lore:
-            - '&aThis is the crazy auctions, here you can'
+            - '&aThis is the Sane auctions, here you can'
             - '&aput items for sale, and buy items'
             - '&athat others have put for sale.'
             - ''
@@ -208,7 +208,7 @@ Settings:
           Slot: 54
           Name: '&6What Is This Page?'
           Lore:
-            - '&aThis is the crazy auctions, here you can'
+            - '&aThis is the Sane auctions, here you can'
             - '&aput items for sale, and bid on items'
             - '&athat others have put for sale.'
             - ''
@@ -223,7 +223,7 @@ Settings:
           Lore:
             - '&aThese are your current listings, all of'
             - '&athe items you currently have listed on'
-            - '&acrazy auctions are displayed here.'
+            - '&aSane auctions are displayed here.'
             - ''
             - '&aYou can cancel and view your listings'
             - '&aexpire time here.'

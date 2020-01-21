@@ -1,4 +1,4 @@
-package me.badbones69.crazyauctions.api;
+package com.clubobsidian.saneauctions.api;
 
 import java.io.File;
 import java.util.Map;
@@ -15,7 +15,7 @@ import org.mapdb.DB;
 import org.mapdb.DBMaker;
 import org.mapdb.Serializer;
 
-import me.badbones69.crazyauctions.Main;
+import com.clubobsidian.saneauctions.Main;
 
 public class MemberManager implements Listener {
 

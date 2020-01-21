@@ -1,8 +1,9 @@
-package me.badbones69.crazyauctions.api;
+package com.clubobsidian.saneauctions.api;
 
-import me.badbones69.crazyauctions.Methods;
-import me.badbones69.crazyauctions.api.FileManager.Files;
 import org.bukkit.configuration.file.FileConfiguration;
+
+import com.clubobsidian.saneauctions.Methods;
+import com.clubobsidian.saneauctions.api.FileManager.Files;
 
 import java.util.Arrays;
 import java.util.HashMap;
